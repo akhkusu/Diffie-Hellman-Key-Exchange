@@ -21,21 +21,21 @@ Learning the principles of Diffie-Hellman Key Exchange, MITM attack, Digital sig
 <h2>Program walk-through:</h2>
 
 <p align="center">
-First, I created a python script for Diffie-Hellman Key Exchange Algorythm
+First, I created a Python script for Diffie-Hellman Key Exchange Algorithm
   <br/>
-<img src="img/Screenshot 2023-08-12 142542.png" height="80%" width="80%" alt="without_rsa_module"/>
+<img src="img/Screenshot 2023-08-22 161239.png" height="80%" width="80%" alt="without_rsa_module"/>
 <br />
 <br />
 <br />
 <br />
 Second, I created another script that simulates Man-In-The_Middle-Attack <br/>
-<img src="img/Screenshot 2023-08-13 144021.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="img/Screenshot 2023-08-22 161259.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
 <br />
 <br />
-Lastly, I added RSA siging function on the first script to see how Diffie-Hellman Key Exchange and RSA signature are used together<br/>
-<img src="img/Screenshot 2023-08-13 144021.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+Lastly, I added the RSA signing function on the first script to see how Diffie-Hellman Key Exchange and RSA signature are used together<br/>
+<img src="img/Screenshot 2023-08-22 161312.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 </p>
 
