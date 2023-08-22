@@ -1,0 +1,66 @@
+import rsa
+import random
+
+g = 5
+p = 23
+
+def generate_private_key():
+    return random.randint(1, p)
+
+def compute_public_key(private_key):
+    return (g ** private_key) % p
+
+def compute_shared_secret(private_key, other_party_public_key):
+    return (other_party_public_key ** private_key) % p
+
+def generate_rsa_keypair():
+    (pubkey, privkey) = rsa.newkeys(2048)
+    return privkey, pubkey
+
+def sign_data(private_key, data):
+    signature = rsa.sign(data, private_key, 'SHA-256')
+    return signature
+
+def verify_signature(public_key, data, signature):
+    try:
+        rsa.verify(data, signature, public_key)
+        return True
+    except rsa.VerificationError:
+        return False
+
+def Diffie_Hellman_with_RSA():
+
+    # Alice and Bob generate RSA key pairs
+    alice_private_rsa, alice_public_rsa = generate_rsa_keypair()
+    bob_private_rsa, bob_public_rsa = generate_rsa_keypair()
+
+    # Alice and Bob generate DH private and public keys
+    alice_private_key = generate_private_key()
+    alice_public_key = compute_public_key(alice_private_key)
+
+    bob_private_key = generate_private_key()
+    bob_public_key = compute_public_key(bob_private_key)
+
+    # Alice signs her DH public key with her RSA private key
+    alice_signature = sign_data(alice_private_rsa, bytes([alice_public_key]))
+
+    # Bob verifies Alice's DH public key with her RSA public key
+    if not verify_signature(alice_public_rsa, bytes([alice_public_key]), alice_signature):
+        print("Signature verification failed!")
+        return
+
+    # Similarly, Bob signs and Alice verifies...
+    bob_signature = sign_data(bob_private_rsa, bytes([bob_public_key]))
+    if not verify_signature(bob_public_rsa, bytes([bob_public_key]), bob_signature):
+        print("Signature verification failed!")
+        return
+
+    # If signatures are verified, they proceed with the DH key exchange
+    alice_shared_secret = compute_shared_secret(alice_private_key, bob_public_key)
+    bob_shared_secret = compute_shared_secret(bob_private_key, alice_public_key)
+
+    assert alice_shared_secret == bob_shared_secret
+    print("Secure key exchange successful with RSA signatures!")
+
+Diffie_Hellman_with_RSA()
+
